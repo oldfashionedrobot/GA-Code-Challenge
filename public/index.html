@@ -72,15 +72,17 @@
           <p>{{ result['Title'] }} ({{ result['Year'] }})</p>
           <!-- ng-src does the same thing as the regular src attribute,
             but waits for the JS to load first before attempting to load an image -->
-          <img ng-src="{{ result['Poster'] }}" />
+          <img ng-if="result['Poster'] != 'N/A'" ng-src="{{ result['Poster'] }}" />
+          <i ng-if="result['Poster'] == 'N/A'">
+            No image available.
+          </i>
         </a>
       </li>
     </ul>
 
     <div ng-if="myCtrl.selectedMovie">
       <h2>Movie Info</h2>
-      <img class="movie-poster" ng-src="{{ myCtrl.selectedMovie['Poster'] }}" />
-
+      <img ng-if="myCtrl.selectedMovie['Poster'] != 'N/A'" class="movie-poster" ng-src="{{ myCtrl.selectedMovie['Poster'] }}" />
       <p>
         <strong>Name:</strong>
         {{ myCtrl.selectedMovie['Title'] }}
