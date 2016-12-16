@@ -71,7 +71,9 @@
         <a href="#" ng-click="myCtrl.getMovieInfo(result['imdbID'])">
           <p>{{ result['Title'] }} ({{ result['Year'] }})</p>
           <!-- ng-src does the same thing as the regular src attribute,
-            but waits for the JS to load first before attempting to load an image -->
+            but waits for the JS to load first before attempting to load an image. -->
+          <!-- Also, not all movie listings have a poster image, so we use ng-if to
+             remove the <img> from the DOM and show a message if there is no poster available. -->
           <img ng-if="result['Poster'] != 'N/A'" ng-src="{{ result['Poster'] }}" />
           <i ng-if="result['Poster'] == 'N/A'">
             No image available.
