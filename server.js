@@ -42,6 +42,8 @@ app.post('/favorites', function(request, response) {
 
 // This starts the server and has it listen on port 3000
 // You can now go to http://localhost:3000 in a browser window to hit this server
-app.listen(3000, function() {
-  console.log('Listening on port 3000');
+var port = process.env.PORT || 3000;
+
+app.listen(port, function() {
+  console.log('Listening on port port');
 });
