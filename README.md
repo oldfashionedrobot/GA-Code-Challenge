@@ -1,1 +1,1 @@
-Code is deployed [here](http://www.omdbapi.com/).
+Code is deployed [here](https://ga-challenge.herokuapp.com/).

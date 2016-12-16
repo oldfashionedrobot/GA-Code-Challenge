@@ -80,7 +80,7 @@
 
     <div ng-if="myCtrl.selectedMovie">
       <h2>Movie Info</h2>
-      <img class="movie-poster" src="{{ myCtrl.selectedMovie['Poster'] }}" />
+      <img class="movie-poster" ng-src="{{ myCtrl.selectedMovie['Poster'] }}" />
 
       <p>
         <strong>Name:</strong>
