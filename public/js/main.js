@@ -65,7 +65,7 @@ function MyController($http) {
   function searchMovies() {
     $http({
       method: 'GET',
-      url: 'http://www.omdbapi.com/',
+      url: 'https://www.omdbapi.com/',
       // The vm.searchString variable is bound to an <input> in the view
       params: { type: 'movie', s: vm.searchString }
     }).then(function(response) {
@@ -81,7 +81,7 @@ function MyController($http) {
 
     $http({
       method: 'GET',
-      url: 'http://www.omdbapi.com/',
+      url: 'https://www.omdbapi.com/',
       params: { i: imdbID }
     }).then(function(response) {
       vm.selectedMovie = response.data;
