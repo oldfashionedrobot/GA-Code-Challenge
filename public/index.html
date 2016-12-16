@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!-- This lets angular know to bind the app we defined to this <html> element. -->
+<html ng-app="MyApp">
+<head>
+  <title>GA Code Challenge</title>
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
+  <script src="/js/main.js"></script>
+</head>
+<!-- ***************************************************************
+  The ng-controller directive binds the controller we wrote in the main.js
+  file to this <body> element. We use the controller as syntax, so that we
+  have an explicit reference to an instance of the controller, which is the
+  myCtrl variable. All the variables and functions that we put on the vm
+  object in the JS controller are on the myCtrl object.
+******************************************************************** -->
+<body ng-controller="MyController as myCtrl">
+  <h1>Movie Favoriting Thing</h1>
+  <p>Search for your favorite movies and add them to your list.</p>
+  <label>
+    <!-- ***************************************************************
+      ng-model is one of Angular's data binding directives. This will
+      bind the value of the input to the myCtrl.currentView variable.
+      In our controller we can access it with vm.currentView. It's a
+      two-way binding, so when we click this radio button, vm.currentView
+      in the JS controller changes, and vice versa.
+    *************************************************************** -->
+    <input type="radio" ng-model="myCtrl.currentView" value="search"/>
+    Search for movies
+  </label>
+  <label>
+    <input type="radio" ng-model="myCtrl.currentView" value="favorites"/>
+    View your favorites
+  </label>
+
+  <!-- ng-if allows us to conditionally add or remove an HTML element. -->
+  <div ng-if="myCtrl.currentView == 'favorites'">
+    <h2>Favorites</h2>
+    <ul>
+      <!-- ng-repeat allows us to repeat an HTML element for each item in an array -->
+      <li ng-repeat="favorite in myCtrl.favorites">
+        <!-- ***************************************************************
+          The {{ }} brackets are another of Angular's data binding methods.
+          This will output the value of favorite.name into this <li>. Like the
+          ng-model binding above this is also a two-way binding.
+        *************************************************************** -->
+        {{ favorite.name }}
+      </li>
+    </ul>
+
+    <!-- ng-show is similar to ng-if, except it just hides/shows the element,
+      and doesn't remove it from the DOM -->
+    <p ng-show="myCtrl.favorites.length == 0">
+      No favorites saved yet.
+    </p>
+  </div>
+
+  <div ng-if="myCtrl.currentView == 'search'">
+    <h2>Search Movies</h2>
+    <!-- Here ng-model is bound to the text in the <input>.
+      ng-change is similar to ng-click except it binds a handler to the "change" event -->
+    <input type="text" ng-model="myCtrl.searchString" ng-change="myCtrl.searchMovies()" />
+    <ul>
+      <!-- ***************************************************************
+        This ng-repeat is a good example of Angular's bindings in action.
+        The <input> above searches the OMDb API whenever the user types into it,
+        and myCtrl.searchResults changes based on what is returned. By just having
+        this ng-repeat, Angular will handle removing and adding new <li> elements
+        as the search results change.
+      *************************************************************** -->
+      <li class="movie-listing" ng-repeat="result in myCtrl.searchResults">
+        <a href="#" ng-click="myCtrl.getMovieInfo(result['imdbID'])">
+          <p>{{ result['Title'] }} ({{ result['Year'] }})</p>
+          <!-- ng-src does the same thing as the regular src attribute,
+            but waits for the JS to load first before attempting to load an image -->
+          <img ng-src="{{ result['Poster'] }}" />
+        </a>
+      </li>
+    </ul>
+
+    <div ng-if="myCtrl.selectedMovie">
+      <h2>Movie Info</h2>
+      <img class="movie-poster" src="{{ myCtrl.selectedMovie['Poster'] }}" />
+
+      <p>
+        <strong>Name:</strong>
+        {{ myCtrl.selectedMovie['Title'] }}
+        <br/>
+        <strong>Released:</strong>
+        {{ myCtrl.selectedMovie['Released'] }}
+        <br/>
+        <strong>Directed by:</strong>
+        {{ myCtrl.selectedMovie['Director'] }}
+        <br/>
+        <strong>Written by:</strong>
+        {{ myCtrl.selectedMovie['Writer'] }}
+        <br/>
+        <strong>Starring:</strong>
+        {{ myCtrl.selectedMovie['Actors'] }}
+        <br/>
+        <strong>Synopsis:</strong>
+        {{ myCtrl.selectedMovie['Plot'] }}
+      </p>
+
+
+      <!-- ng-click simply binds a "click" event handler.
+         myCtrl.saveFavorite() will called when this button is clicked. -->
+      <button ng-click="myCtrl.saveFavorite()">
+        Save as Favorite
+      </button>
+    </div>
+  </div>
+
+</body>
+</html>

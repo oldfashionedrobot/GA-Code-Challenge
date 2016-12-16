@@ -1,0 +1,16 @@
+.movie-listing {
+  display: inline-block;
+  vertical-align: top;
+  width: 200px;
+  margin: 10px;
+}
+
+.movie-listing img {
+  width: 100%;
+}
+
+.movie-poster {
+  float: left;
+  margin-right: 10px;
+  width: 250px;
+}
