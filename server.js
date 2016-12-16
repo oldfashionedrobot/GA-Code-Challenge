@@ -40,10 +40,12 @@ app.post('/favorites', function(request, response) {
   response.send(data);
 });
 
-// This starts the server and has it listen on port 3000
-// You can now go to http://localhost:3000 in a browser window to hit this server
+
+// This is just to get the port number from Heroku if applicable
 var port = process.env.PORT || 3000;
 
+// This starts the server and has it listen on port 3000
+// You can now go to http://localhost:3000 in a browser window to hit this server
 app.listen(port, function() {
-  console.log('Listening on port port');
+  console.log('Listening on port ' + port);
 });
